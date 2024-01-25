@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        #sequenceInput {
+            height: 25px;
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            max-width: 100%; /* Defina a largura máxima para evitar que o botão estoure a tela */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        button.copyButton {
+            background-color: #008CBA;
+            margin: 5px;
+        }
+
+        button.copyButton:hover {
+            background-color: #00719c;
+        }
+    </style>
+    <script>
+        function formatAndDisplay() {
+            var inputSequence = document.getElementById('sequenceInput').value;
+            var numbers = inputSequence.split('\n').map(function(item) {
+                return item.trim();
+            });
+
+            var resultContainer = document.getElementById('result');
+            resultContainer.innerHTML = '';
+
+            var formattedNumbers = numbers.join(',');
+
+            var button = document.createElement('button');
+            button.textContent = formattedNumbers;
+            button.onclick = function() {
+                copyToClipboard(formattedNumbers);
+            };
+
+            resultContainer.appendChild(button);
+        }
+
+        function copyToClipboard(text) {
+            var tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Sequência copiada para a área de transferência: ' + text);
+        }
+    </script>
+</head>
+<body>
+    <h2>Insira uma sequência de números separados por vírgula:</h2>
+    <textarea id="sequenceInput" rows="5"></textarea>
+    <br>
+    <button onclick="formatAndDisplay()">Formatar e Exibir</button>
+
+    <div id="result"></div>
+</body>
+</html>
